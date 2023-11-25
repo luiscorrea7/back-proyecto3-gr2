@@ -4,25 +4,25 @@
 
 ### Tecnologias
 
-* NodeJs
-* ExpressJs
-* MongoDB
+* [NodeJs](https://nodejs.org/en)
+* [ExpressJs](https://expressjs.com)
+* [MongoDB](mongodb.com)
 
 ### Dependencias
 
-* Nodemon
-* Cors
-* Morgan
-* Mongoose
-* Dotenv
+* [Nodemon](https://www.npmjs.com/package/nodemon)
+* [Cors](https://www.npmjs.com/package/cors)
+* [Morgan](https://www.npmjs.com/package/morgan)
+* [Mongoose](https://mongoosejs.com)
+* [Dotenv](https://www.npmjs.com/package/dotenv)
 
 ### Validaciones y Token
 
-* Express-Validator
-* JsonWebToken
+* [Express-Validator](https://www.npmjs.com/package/express-validator)
+* [JsonWebToken](https://www.npmjs.com/package/jsonwebtoken)
 
 ### Mas herramientas usadas
 
-* Postman
-* MongoDB Compass
-* Trello
+* [Postman](https://www.postman.com)
+* [MongoDB Compass](https://www.mongodb.com/es/products/tools/compass)
+* [Trello]()
