@@ -14,7 +14,11 @@ app.use(cors({}));
 
 //--- useRoutes
 
+const userRoutes = require('../routes/users.routes');
+
 //--- routes
+
+app.use('/API/users', userRoutes);
 
 app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`);
