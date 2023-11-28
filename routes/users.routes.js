@@ -9,7 +9,11 @@ route.get('/', (req, res) => {
   }
 });
 
-route.get('/find/:id', () => {
+route.get('/findByID/:id', () => {
+  console.log('test')
+});
+
+route.get('/findByEmail/:email', () => {
   console.log('test')
 });
 
