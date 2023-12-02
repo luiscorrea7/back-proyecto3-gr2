@@ -1,33 +1,17 @@
 const { Router } = require('express');
+const { getAllUsers, getUserById, getUserByEmail, createUser, editUser, deleteUser } = require('../controllers/users.controllers');
 const route = Router();
 
-route.get('/', (req, res) => {
-  try {
-    res.status(200).json('test')
-  } catch (error) {
-    console.log(error)
-  }
-});
+route.get('/', getAllUsers);
 
-route.get('/findByID/:id', () => {
-  console.log('test')
-});
+route.get('/findByID/:id', getUserById);
 
-route.get('/findByEmail/:email', () => {
-  console.log('test')
-});
+route.get('/findByEmail/:email', getUserByEmail);
 
-route.post('/create', () => {
-  console.log('test')
-});
+route.post('/createUser', createUser);
 
-route.patch('/edit/id', () => {
-  console.log('test')
-});
+route.patch('/editUser/:id', editUser);
 
-route.delete('/delete/id', () => {
-  console.log(test)
-});
+route.delete('/deleteUser/:id', deleteUser);
 
 module.exports = route;
-
