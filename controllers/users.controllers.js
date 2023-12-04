@@ -1,7 +1,20 @@
+const { getAllUsersService, createUserService, getUserByID, getUserByIdService, getUserByEmailService, deleteUserService, editUserService } = require("../services/users.services");
+
+
+const createUser = async (req, res) => {
+  try {
+    const payload = req.body;
+    await createUserService(payload);
+    res.status(201).json('user created succesfully');
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
 
 const getAllUsers = async (req, res) => {
   try {
-    res.status(200).json('usuarios traidos con exito');
+    const response = await getAllUsersService();
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -9,9 +22,9 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    let { id } = req.params
-    console.log(id);
-    res.status(200).json(`el id de su usuario es ${id}`);
+    const  { id } = req.params
+    const response = await getUserByIdService(id);
+    !response ? res.status(404).json('user not found') : res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -19,17 +32,9 @@ const getUserById = async (req, res) => {
 
 const getUserByEmail = async (req, res) => {
   try {
-    let { email } = req.params;
-    res.status(200).json(`el email de su user es ${email}`);
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
-};
-
-const createUser = async (req, res) => {
-  try {
-    const payload = req.body;
-    res.status(201).json(payload);
+    const { email } = req.query;
+    const response = await getUserByEmailService(email);
+    response.length === 0 ? res.status(404).json('user not found') : res.status(200).json(response)
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -39,8 +44,8 @@ const editUser = async (req, res) => {
   try {
     const { id } = req.params;
     const payload = req.body;
-    console.log(payload);
-    res.status(200).json(`el objeto a modificar tiene el id: ${id}`);
+    const response = await editUserService(id, payload);
+    !response ? res.status(404).json('user not found') : res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -49,7 +54,8 @@ const editUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
-    res.status(200).json('usuario eliminado con exito');
+    const response = await deleteUserService(id);
+    !response ? res.status(404).json('user not found') : res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error.message);
   }

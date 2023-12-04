@@ -6,7 +6,7 @@ route.get('/', getAllUsers);
 
 route.get('/findByID/:id', getUserById);
 
-route.get('/findByEmail/:email', getUserByEmail);
+route.get('/findByEmail', getUserByEmail);
 
 route.post('/createUser', createUser);
 
