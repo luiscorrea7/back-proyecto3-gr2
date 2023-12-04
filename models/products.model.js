@@ -33,4 +33,4 @@ const productSchema = new Schema ({
 
 }, {timestamps: true});
 
-module.exports = model('productModel', productSchema);
+module.exports = model('products', productSchema);
