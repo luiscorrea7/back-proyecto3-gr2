@@ -1,5 +1,5 @@
 const { response } = require("express");
-const { createProductService, getAllProductsService, getProductByIdService, getProductByCategoryService, editProductService, deleteProductService } = require("../server/product.services");
+const { createProductService, getAllProductsService, getProductByIdService, getProductByCategoryService, editProductService, deleteProductService } = require("../services/product.services");
 const productsModel = require("../models/products.model");
 
 const createProduct = async (req, res)=>{
