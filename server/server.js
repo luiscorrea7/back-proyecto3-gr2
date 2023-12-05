@@ -16,10 +16,12 @@ app.use(cors({}));
 //--- useRoutes
 
 const userRoutes = require('../routes/users.routes');
+const producRoutes = require('../routes/product.routes');
 
 //--- routes
 
 app.use('/API/users', userRoutes);
+app.use('/api/products', producRoutes);
 
 app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`);

@@ -3,6 +3,7 @@ const { Schema, model } = require('mongoose');
 const productSchema = new Schema ({
   name: {
     type: String,
+    unique: true,
     required: [true, "this field is required"]
   },
 
@@ -33,4 +34,4 @@ const productSchema = new Schema ({
 
 }, {timestamps: true});
 
-module.exports = model('productModel', productSchema);
+module.exports = model('products', productSchema);
