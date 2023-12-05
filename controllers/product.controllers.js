@@ -5,9 +5,8 @@ const productsModel = require("../models/products.model");
 const createProduct = async (req, res)=>{
     try {
         const payload = req.body;
-        const newProduct = await createProductService(payload);
-        const savedProduct = newProduct.save()
-        res.status(201).json(savedProduct)
+        await createProductService(payload);
+        res.status(201).json('Product created successfully')
     } catch (error) {
         res.status(500).json(error.message);
     }
@@ -15,7 +14,7 @@ const createProduct = async (req, res)=>{
 
 const getAllProducts = async (req, res)=>{
     try {
-        const response = getAllProductsService();
+        const response = await getAllProductsService();
         res.status(201).json(response);
     } catch (error) {
         res.status(500).json(error.message);
@@ -25,8 +24,7 @@ const getAllProducts = async (req, res)=>{
 const getProductById = async(req,res)=>{
     try {
         const { id } = req.params;
-        console.log(id);
-        const response = getProductByIdService(id)
+        const response = await getProductByIdService(id)
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json(error.message);
@@ -36,8 +34,7 @@ const getProductById = async(req,res)=>{
 const getProductByCat = async(req,res)=>{
     try {
         const {category} = req.params;
-        console.log(category);
-        const response = getProductByCategoryService(category);
+        const response = await getProductByCategoryService(category);
         res.status(200).json(response)
     } catch (error) {
         res.status(500).json(error.message);
@@ -48,9 +45,8 @@ const editProduct = async(req, res)=>{
         try {
           const { id } = req.params;
           const payload = req.body;
-          console.log(payload);
-          const response = editProductService(id, payload);
-          if(!response) return res.status(404).json('no se encuentra el producto')
+          const response = await editProductService(id, payload);
+          if(!response) return res.status(404).json('product not found')
           res.status(200).json(response);
         } catch (error) {
           res.status(500).json(error.message);
@@ -61,8 +57,8 @@ const deleteProduct = async(req,res)=>{
     try {
         const {id} = req.params
         const productDeleted = deleteProductService(id)
-        if(!productDeleted) return res.status(404).json('no se encontro el producto a eliminar')
-        res.status(204).json('Elimidado exitosamente')
+        if(!productDeleted) return res.status(404).json('product not found')
+        res.status(200).json('Deleted successfully')
     } catch (error) {
         res.status(500).json(error.message);
     }
