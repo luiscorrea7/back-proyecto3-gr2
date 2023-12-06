@@ -1,10 +1,13 @@
+const { hashingPassword } = require("../helpers/hashPassword");
 const { getAllUsersService, createUserService, getUserByID, getUserByIdService, getUserByEmailService, deleteUserService, editUserService } = require("../services/users.services");
 
 
 const createUser = async (req, res) => {
   try {
     const payload = req.body;
-    await createUserService(payload);
+    const userWithPassHashed = await hashingPassword(payload)
+    console.log(userWithPassHashed);
+    await createUserService(userWithPassHashed);
     res.status(201).json('user created succesfully');
   } catch (error) {
     res.status(500).json(error.message);
