@@ -5,8 +5,7 @@ const { getAllUsersService, createUserService, getUserByID, getUserByIdService, 
 const createUser = async (req, res) => {
   try {
     const payload = req.body;
-    const userWithHashPass = await hashingPassword(payload);
-    await createUserService(userWithHashPass);
+    
     res.status(201).json('user created succesfully');
   } catch (error) {
     res.status(500).json(error.message);
