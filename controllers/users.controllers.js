@@ -6,7 +6,6 @@ const createUser = async (req, res) => {
   try {
     const payload = req.body;
     const userWithPassHashed = await hashingPassword(payload)
-    console.log(userWithPassHashed);
     await createUserService(userWithPassHashed);
     res.status(201).json('user created succesfully');
   } catch (error) {
