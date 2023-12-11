@@ -1,7 +1,4 @@
 const { body } = require('express-validator');
-const { getUserByEmail } = require('../controllers/users.controllers');
-const { getUserByEmailService } = require('../services/users.services');
-
 
 const createUserValidations = {
   email: body('email')
