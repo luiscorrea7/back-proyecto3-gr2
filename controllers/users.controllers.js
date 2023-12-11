@@ -1,9 +1,11 @@
+const { validationResult } = require("express-validator");
 const { hashingPassword } = require("../helpers/hashPassword");
 const { getAllUsersService, createUserService, getUserByID, getUserByIdService, getUserByEmailService, deleteUserService, editUserService } = require("../services/users.services");
 
-
 const createUser = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
     const payload = req.body;
     const userWithPassHashed = await hashingPassword(payload)
     await createUserService(userWithPassHashed);
