@@ -4,6 +4,8 @@ const productsModel = require("../models/products.model");
 
 const createProduct = async (req, res)=>{
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
         const payload = req.body;
         await createProductService(payload);
         res.status(201).json('Product created successfully')
@@ -23,6 +25,8 @@ const getAllProducts = async (req, res)=>{
 
 const getProductById = async(req,res)=>{
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
         const { id } = req.params;
         const response = await getProductByIdService(id)
         res.status(200).json(response);
@@ -42,19 +46,23 @@ const getProductByCat = async(req,res)=>{
 };
 
 const editProduct = async(req, res)=>{
-        try {
-          const { id } = req.params;
-          const payload = req.body;
-          const response = await editProductService(id, payload);
-          if(!response) return res.status(404).json('product not found')
-          res.status(200).json(response);
-        } catch (error) {
-          res.status(500).json(error.message);
-        }
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
+        const { id } = req.params;
+        const payload = req.body;
+        const response = await editProductService(id, payload);
+        if(!response) return res.status(404).json('product not found')
+        res.status(200).json(response);
+    } catch (error) {
+      res.status(500).json(error.message);
+    }
 };
 
 const deleteProduct = async(req,res)=>{
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
         const {id} = req.params
         const productDeleted = deleteProductService(id)
         if(!productDeleted) return res.status(404).json('product not found')
