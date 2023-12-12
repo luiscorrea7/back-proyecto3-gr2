@@ -1,4 +1,4 @@
-const { body } = require('express-validator');
+const { body, param, query } = require('express-validator');
 
 const createUserValidations = {
   email: body('email')
@@ -10,8 +10,35 @@ const createUserValidations = {
   password: body('password')
     .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,14}$/)
     .withMessage(`This password doesn't meet the requirements `)
+};
+
+const mongoIdValidator = {
+  id: param('id')
+    .isMongoId()
+    .withMessage('This id is not a valid MongoDB ObjectID')
+};
+
+const emailQueryValidator = {
+  email: query('email')
+    .isEmail()
+    .withMessage('This email is not valid')
+};
+
+const productCreateValidations = {
+  image: body('image')
+    .isURL()
+    .withMessage('Image URL not valid'),
+  stock: body('stock')
+    .isNumeric()
+    .withMessage('This field is not valid (Supposed to be a number)'),
+  price: body('price')
+    .isNumeric()
+    .withMessage('This field is not valid (Supposed to be a number)'),
 }
 
 module.exports = {
-  createUserValidations
+  createUserValidations,
+  mongoIdValidator,
+  emailQueryValidator,
+  productCreateValidations
 }
