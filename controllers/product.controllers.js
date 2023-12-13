@@ -7,24 +7,25 @@ const {
   editProductService,
   deleteProductService,
 } = require("../services/product.services");
+const {validationResult} = require('express-validator')
 const products = require("../models/products.model");
 const { uploadImage, deleteImage } = require("../helpers/cloudinary");
 
 const createProduct = async (req, res) => {
   try {
-    const payload = req.body;
-    console.log(req.files);
-
-    if (req.files?.image) {
+      
       const result = await uploadImage(req.files.image.tempFilePath);
-      console.log(result);
-      products.image = {
-        public_id: result.public_id,
-        secure_url: result.secure_url,
-      };
-    }
+      
+      const payload = req.body;
+      payload.image = result.secure_url;
+      
+      
+      await createProductService(payload);
 
-    await createProductService(payload);
+      const errors = validationResult(req);
+      if (!errors.isEmpty())
+      return res.status(400).json({ errors: errors.array() });
+      
     res.status(201).json("Product created successfully");
   } catch (error) {
     res.status(500).json(error.message);
@@ -42,6 +43,9 @@ const getAllProducts = async (req, res) => {
 
 const getProductById = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+      return res.status(400).json({ errors: errors.array() });
     const { id } = req.params;
     const response = await getProductByIdService(id);
     res.status(200).json(response);
@@ -62,6 +66,9 @@ const getProductByCat = async (req, res) => {
 
 const editProduct = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+      return res.status(400).json({ errors: errors.array() });
     const { id } = req.params;
     const payload = req.body;
     const response = await editProductService(id, payload);
@@ -74,11 +81,14 @@ const editProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+      return res.status(400).json({ errors: errors.array() });
     const { id } = req.params;
     const productDeleted = deleteProductService(id);
     if (!productDeleted) return res.status(404).json("product not found");
 
-    if (productsModel.image?.public_id) {
+    if (payload.image?.public_id) {
       //recibe el public id de la imagen. agregar al modelo
       await deleteImage(products.image.public_id);
     }

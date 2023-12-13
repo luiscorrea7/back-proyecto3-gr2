@@ -10,9 +10,10 @@ cloudinary.config({
 
   
  const uploadImage = async(filePath) =>{
-  return await cloudinary.uploader.upload(filePath,{
+  if (filePath) return await cloudinary.uploader.upload(filePath,{
     folder: 'products'
-  })
+  }) 
+  return null;
 };
 
 const deleteImage = async(publicID)=>{
