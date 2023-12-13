@@ -7,14 +7,14 @@ const login = async (req, res)=>{
     try {
         const {email, password} = req.body;
         const response = await getUserByEmailService(email);
-        console.log('primera respuesta',response.password);
-        if(response.length === 0 ) return res.status(404).json('User not found');
+        
+        if(!response ) return res.status(404).json('User not found');
 
         const passMatchResult = await passMatch(password, response.password);
         if(!passMatchResult) return res.status(200).json('incorrect password');
 
         const payload = {
-            username: response.username,
+            username: response.userName,
             email: response.email,
             role: response.role,
             _id: response._id
