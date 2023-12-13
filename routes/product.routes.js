@@ -7,17 +7,17 @@ const {
   deleteProduct,
   getProductByCat,
 } = require("../controllers/product.controllers");
+const fileUpload = require('express-fileupload');
 const { productCreateValidations, mongoIdValidator } = require("../helpers/validations");
 
 const route = Router();
 
-route.post(
-  "/create",
-  [productCreateValidations.image],
-  [productCreateValidations.stock],
-  [productCreateValidations.price],
-  createProduct
-);
+route.post("/create", fileUpload({
+  useTempFiles : true,
+  tempFileDir : './upoloads'
+}),
+[productCreateValidations.stock],
+[productCreateValidations.price],createProduct);
 
 route.get("/", getAllProducts);
 
@@ -40,5 +40,7 @@ route.delete(
   [mongoIdValidator.id],
   deleteProduct
 );
+
+route.patch('/uploadImage/:id')
 
 module.exports = route;

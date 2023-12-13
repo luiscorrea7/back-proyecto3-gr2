@@ -14,7 +14,7 @@ const productSchema = new Schema ({
 
   image: {
     type: String,
-    required: [true, "this field is required"]
+    required: [true, "this file is required"],
   },
 
   stock: {
