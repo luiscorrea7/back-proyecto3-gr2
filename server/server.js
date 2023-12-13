@@ -23,8 +23,8 @@ const loginRoutes = require('../routes/login.routes')
 //--- routes
 
 app.use('/API/users', userRoutes);
-app.use('/api/products', producRoutes);
-app.use('/api/login', loginRoutes);
+app.use('/API/products', producRoutes);
+app.use('/API/login', loginRoutes);
 
 
 app.listen(PORT, () => {
