@@ -14,7 +14,7 @@ const getUserByIdService = async (id) => {
 };
 
 const getUserByEmailService = async (email) => {
-  return await user.find({ email });
+  return await user.findOne({ email });
 };
 
 const deleteUserService = async (id) => {
