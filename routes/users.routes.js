@@ -11,6 +11,7 @@ const {
   createUserValidations,
   mongoIdValidator,
   emailQueryValidator,
+  fieldsValidator,
 } = require("../helpers/validations");
 const { authTokenValidation, validateRole } = require("../helpers/auth");
 const route = Router();
@@ -20,6 +21,7 @@ route.get("/", getAllUsers);
 route.get(
   "/findByID/:id",
   [mongoIdValidator.id],
+  fieldsValidator,
   authTokenValidation,
   getUserById
 );
@@ -30,6 +32,7 @@ route.post(
   "/createUser",
   [createUserValidations.email],
   [createUserValidations.password],
+  fieldsValidator,
   authTokenValidation,
   validateRole,
   createUser
@@ -38,6 +41,7 @@ route.post(
 route.patch(
   "/editUser/:id",
   [mongoIdValidator.id],
+  fieldsValidator,
   authTokenValidation,
   validateRole,
   editUser
@@ -46,6 +50,7 @@ route.patch(
 route.delete(
   "/deleteUser/:id",
   [mongoIdValidator.id],
+  fieldsValidator,
   authTokenValidation,
   validateRole,
   deleteUser

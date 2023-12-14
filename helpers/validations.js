@@ -1,4 +1,4 @@
-const { body, param, query } = require('express-validator');
+const { body, param, query, validationResult } = require('express-validator');
 
 const createUserValidations = {
   email: body('email')
@@ -36,9 +36,15 @@ const productCreateValidations = {
     .withMessage('This field is not valid (Supposed to be a number)'),
 }
 
+const fieldsValidator = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
+  next();
+}
 module.exports = {
   createUserValidations,
   mongoIdValidator,
   emailQueryValidator,
-  productCreateValidations
+  productCreateValidations,
+  fieldsValidator
 }

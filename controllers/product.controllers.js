@@ -21,10 +21,6 @@ const createProduct = async (req, res) => {
       
       
       await createProductService(payload);
-
-      const errors = validationResult(req);
-      if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
       
     res.status(201).json("Product created successfully");
   } catch (error) {
@@ -43,9 +39,6 @@ const getAllProducts = async (req, res) => {
 
 const getProductById = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
     const { id } = req.params;
     const response = await getProductByIdService(id);
     res.status(200).json(response);
@@ -66,9 +59,6 @@ const getProductByCat = async (req, res) => {
 
 const editProduct = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
     const { id } = req.params;
     const payload = req.body;
     const response = await editProductService(id, payload);
@@ -81,9 +71,6 @@ const editProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
     const { id } = req.params;
     const productDeleted = deleteProductService(id);
     if (!productDeleted) return res.status(404).json("product not found");
