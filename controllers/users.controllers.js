@@ -4,8 +4,6 @@ const { getAllUsersService, createUserService, getUserByID, getUserByIdService, 
 
 const createUser = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
     const payload = req.body;
     const userWithPassHashed = await hashingPassword(payload)
     await createUserService(userWithPassHashed);
@@ -26,8 +24,6 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
     const  { id } = req.params
     const response = await getUserByIdService(id);
     !response ? res.status(404).json('user not found') : res.status(200).json(response);
@@ -38,8 +34,6 @@ const getUserById = async (req, res) => {
 
 const getUserByEmail = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
     const { email } = req.query;
     const response = await getUserByEmailService(email);
     response.length === 0 ? res.status(404).json('user not found') : res.status(200).json(response)
@@ -50,8 +44,6 @@ const getUserByEmail = async (req, res) => {
 
 const editUser = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
     const { id } = req.params;
     const payload = req.body;
     const response = await editUserService(id, payload);
@@ -63,8 +55,6 @@ const editUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
     const { id } = req.params;
     const response = await deleteUserService(id);
     !response ? res.status(404).json('user not found') : res.status(200).json(response);
