@@ -2,10 +2,10 @@ const { Router } = require("express");
 const {
   getAllUsers,
   getUserById,
-  getUserByEmail,
   createUser,
   editUser,
   deleteUser,
+  validateEmail,
 } = require("../controllers/users.controllers");
 const {
   createUserValidations,
@@ -26,7 +26,7 @@ route.get(
   getUserById
 );
 
-route.get("/findByEmail", [emailQueryValidator.email], getUserByEmail);
+route.get("/findByEmail", [emailQueryValidator.email], validateEmail);
 
 route.post(
   "/createUser",

@@ -13,9 +13,13 @@ const getUserByIdService = async (id) => {
   return await user.findById(id);
 };
 
+const checkEmailService = async (email) => {
+  return await user.find({ email });
+};
+
 const getUserByEmailService = async (email) => {
   return await user.findOne({ email });
-};
+}
 
 const deleteUserService = async (id) => {
   return await user.findByIdAndDelete(id);
@@ -33,7 +37,8 @@ module.exports = {
   getAllUsersService,
   createUserService,
   getUserByIdService,
-  getUserByEmailService,
+  checkEmailService,
   deleteUserService,
-  editUserService
+  editUserService,
+  getUserByEmailService
 }
