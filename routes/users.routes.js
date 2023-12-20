@@ -32,9 +32,6 @@ route.post(
   "/createUser",
   [createUserValidations.email],
   [createUserValidations.password],
-  fieldsValidator,
-  authTokenValidation,
-  validateRole,
   createUser
 );
 

@@ -36,7 +36,7 @@ const getUserByEmail = async (req, res) => {
   try {
     const { email } = req.query;
     const response = await getUserByEmailService(email);
-    response.length === 0 ? res.status(404).json('user not found') : res.status(200).json(response)
+    !response ? res.status(404).json('user not found') : res.status(200).json(response)
   } catch (error) {
     res.status(500).json(error.message);
   }
