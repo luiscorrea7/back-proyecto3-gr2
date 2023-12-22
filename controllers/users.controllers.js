@@ -1,6 +1,6 @@
 const { validationResult } = require("express-validator");
 const { hashingPassword } = require("../helpers/hashPassword");
-const { getAllUsersService, createUserService, getUserByID, getUserByIdService, getUserByEmailService, deleteUserService, editUserService } = require("../services/users.services");
+const { getAllUsersService, createUserService, getUserByIdService, deleteUserService, editUserService, checkEmailService } = require("../services/users.services");
 
 const createUser = async (req, res) => {
   try {
@@ -32,11 +32,11 @@ const getUserById = async (req, res) => {
   }
 };
 
-const getUserByEmail = async (req, res) => {
+const validateEmail = async (req, res) => {
   try {
     const { email } = req.query;
-    const response = await getUserByEmailService(email);
-    response.length === 0 ? res.status(404).json('user not found') : res.status(200).json(response)
+    const response = await checkEmailService(email);
+    response.length === 0 ? res.status(200).json(false) : res.status(200).json(true)
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -67,7 +67,7 @@ const deleteUser = async (req, res) => {
 module.exports =  {
   getAllUsers,
   getUserById,
-  getUserByEmail,
+  validateEmail,
   createUser,
   editUser,
   deleteUser
